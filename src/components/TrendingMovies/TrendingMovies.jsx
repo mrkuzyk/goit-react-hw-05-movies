@@ -24,7 +24,7 @@ export default function TrendingMovies() {
         <>
             { movies && !error &&
                 <ul>
-                    {movies.map(({id, title}) => <li key={id}>{title}</li>)}
+                    {movies.map(({id, title}) => <Link key={id}>{title}</Link>)}
                 </ul>
             }
         </>
