@@ -23,8 +23,17 @@ export default function TrendingMovies() {
     return (
         <>
             { movies && !error &&
-                <ul>
-                    {movies.map(({id, title}) => <Link key={id}>{title}</Link>)}
+                <ul >
+                    {movies.map(({ id, title }) => 
+                        <li>
+                            <Link
+                                style={{ display: 'flex' }}
+                                to={`/movies/${id}`}
+                                key={id}
+                            >
+                                {title}
+                            </Link>
+                    </li>)}
                 </ul>
             }
         </>
