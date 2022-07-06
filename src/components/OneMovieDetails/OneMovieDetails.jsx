@@ -18,7 +18,6 @@ const OneMovieDetails = () => {
                 return response.json();
             })
             .then(movie => {
-                console.log(movie);
                 setMovies(movie)
             })
             .catch(error => { setError(error) })
@@ -31,7 +30,7 @@ const OneMovieDetails = () => {
             {movie && !error && 
                 <>
                     <img
-                        src={`https://image.tmdb.org/t/p/w400${poster_path}`}
+                        src={poster_path && `https://image.tmdb.org/t/p/w400${poster_path}`}
                         alt={title}
                         height='400px'
                     />
@@ -43,8 +42,8 @@ const OneMovieDetails = () => {
                 {genres && <p>{genres.map((g) => g.name).join(' ')}</p>}
 
                 <h3>Additional information</h3>
-                <Link to='cast'>Cast</Link>
-                <Link to='reviews'>Reviews</Link>
+                <Link to='cast' replace={true}>Cast</Link>
+                <Link to='reviews' replace={true}>Reviews</Link>
                 <Outlet/>
                 </>
             }

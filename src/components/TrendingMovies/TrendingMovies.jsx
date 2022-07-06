@@ -25,11 +25,10 @@ export default function TrendingMovies() {
             { movies && !error &&
                 <ul >
                     {movies.map(({ id, title }) => 
-                        <li>
+                        <li key={id}>
                             <Link
                                 style={{ display: 'flex' }}
                                 to={`/movies/${id}`}
-                                key={id}
                             >
                                 {title}
                             </Link>
