@@ -1,0 +1,19 @@
+.img{
+    width: 167px;
+    height: 250px;
+}
+
+.title {
+    margin-top: 15px;
+    margin-bottom: 0;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.36;
+}
+
+.titleText {
+    margin-top: 5px;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.15;
+}

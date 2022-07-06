@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
+import s from './TrendingMovies.module.css';
 
 export default function TrendingMovies() {
     const [movies, setMovies] = useState([]);
@@ -15,26 +16,32 @@ export default function TrendingMovies() {
                 return response.json();
             })
             .then(movies => {
+                // console.log(movies.results);
                 setMovies(movies.results)
             })
             .catch(error => { setError(error) })
     }, []);
         
     return (
-        <>
-            { movies && !error &&
-                <ul >
-                    {movies.map(({ id, title }) => 
-                        <li key={id}>
-                            <Link
-                                style={{ display: 'flex' }}
-                                to={`/movies/${id}`}
-                            >
-                                {title}
-                            </Link>
-                    </li>)}
-                </ul>
+        <section>
+            {movies && !error &&
+                <div className="container">
+                    <h3 className={s.title}>Trending today</h3>
+                    <ul className={s.list}>
+                        {movies.map(({ id, title, poster_path }) => 
+                            <li key={id} className={ s.item}>
+                                <Link to={`/movies/${id}`}  className={s.movie}>
+                                    <img
+                                        src={poster_path && `https://image.tmdb.org/t/p/w400${poster_path}`}
+                                        alt={title}
+                                        className={s.img}
+                                    />
+                                    {title}
+                                </Link>
+                            </li>)}
+                    </ul>
+                </div>
             }
-        </>
+        </section>
     );
 };

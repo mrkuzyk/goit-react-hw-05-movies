@@ -1,13 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import ActorInfo from 'components/ActorInfo/ActorInfo';
+import s from './Cast.module.css';
 
 const Cast = () => {
 
     const [cast, setCast] = useState([]);
     const [error, setError] = useState(null);
 
-    const { id } = useParams();
+    const { id } = useParams(); // отримую параметр з url
     // console.log(id);
 
     useEffect(() => {
@@ -22,16 +23,17 @@ const Cast = () => {
             })
             .then(details => {
                 // console.log(details.cast);
-                setCast(details.cast)
+                setCast(details.cast) // записую акторський склад в стейт
             })
             .catch(error => { setError(error) })
     }, [id]);
+    
     return (
-        <div>
+        <div className={s.flex}>
             {cast && !error && 
-                <ul>
+                <ul className={s.list}>
                     {cast.map((actor) =>
-                        <li key={actor.id}>
+                        <li key={actor.id} className={s.item}>
                             <ActorInfo actor={actor} />
                         </li>
                     )}

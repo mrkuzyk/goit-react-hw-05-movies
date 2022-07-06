@@ -1,5 +1,6 @@
-import { useParams, Link, Outlet } from 'react-router-dom';
+import { useParams, NavLink, Outlet } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import s from './OneMovieDetails.module.css';
 
 const OneMovieDetails = () => {
     const [movie, setMovies] = useState([]);
@@ -26,28 +27,46 @@ const OneMovieDetails = () => {
 
     const { poster_path, title, original_title, release_date, vote_average, overview, genres } = movie;
     return (
-        <>
+        <section className={s.movieDetails}>
             {movie && !error && 
-                <>
-                    <img
-                        src={poster_path && `https://image.tmdb.org/t/p/w400${poster_path}`}
-                        alt={title}
-                        height='400px'
-                    />
-                <h2>{original_title} ({Number.parseInt(release_date)})</h2>
-                <p>User Score: {vote_average * 10}%</p>
-                <h3>Overview</h3>
-                <p>{overview}</p>
-                <h3>Genres</h3>
-                {genres && <p>{genres.map((g) => g.name).join(' ')}</p>}
-
-                <h3>Additional information</h3>
-                <Link to='cast' replace={true}>Cast</Link>
-                <Link to='reviews' replace={true}>Reviews</Link>
-                <Outlet/>
-                </>
+                <div className="container">
+                    <div className={s.flex}>
+                        <img
+                            src={poster_path && `https://image.tmdb.org/t/p/w400${poster_path}`}
+                            alt={title}
+                            className={s.img}
+                        />
+                        <div>
+                            <h2 className={s.name}>{original_title} ({Number.parseInt(release_date)})</h2>
+                            <p className={s.score}>User Score: {vote_average * 10}%</p>
+                            <h3 className={s.title}>Overview</h3>
+                            <p className={s.titleText}>{overview}</p>
+                            <h3 className={s.title}>Genres</h3>
+                            {genres && <p className={s.titleText}>{genres.map((g) => g.name).join(' | ')}</p>}
+                        </div>
+                    </div>
+                    
+                    <h3 className={s.additionalInformation}>Additional information</h3>
+                    <div className={s.infoBtn}>
+                        <NavLink
+                            to='cast'
+                            replace={true}
+                            className={({isActive})=> isActive ? `${s.active} ${s.info}` : s.info}
+                        >
+                            Cast
+                        </NavLink>
+                        <NavLink
+                            to='reviews'
+                            replace={true}
+                            className={({isActive})=> isActive ? `${s.active} ${s.info}` : s.info}
+                        >
+                            Reviews
+                        </NavLink>
+                    </div>
+                    <Outlet/>
+                </div>
             }
-        </>
+        </section>
     )
 }
 
