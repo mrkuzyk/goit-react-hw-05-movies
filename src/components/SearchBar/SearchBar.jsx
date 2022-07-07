@@ -1,25 +1,30 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useSearchParams } from 'react-router-dom';
 import s from './SearchBar.module.css'
 
-const  SearchBar = ({onSubmit}) => {
-    const [moviesName, setMoviesName] = useState('');
+const  SearchBar = () => {
+    // eslint-disable-next-line
+    const [searchParams, setSearchParams] = useSearchParams();
+    let input = '';
 
+    // console.log(query)
     const handleNameChange = (e) => {
-        setMoviesName(e.currentTarget.value.toLowerCase()) // стейт приймає значення з інпут
+        input = e.currentTarget.value.toLowerCase() // значення з інпут
+        // console.log(input);
     };
 
     const handleSubmit = e => {
         e.preventDefault();
+        const form = e.currentTarget; // форма
+        // console.log(form);
 
         // якщо пошук пустий, то помилку викидаю
-        if (moviesName.trim() === '') {
+        if (input.trim() === '') {
             alert('Ще раз таке зробиш, і я викличу поліцію');
             return
         };
         
-        onSubmit(moviesName); // onSubmit це назва пропсів, а не слухач подій
-        setMoviesName(''); // очищую стейт
+        setSearchParams({ query: input}) // зберігаю запит в парамс
+        form.reset(); // очищую форму
     };
 
     return (
@@ -37,7 +42,6 @@ const  SearchBar = ({onSubmit}) => {
                         className={s.input}
                         name="moviesName"
                         type="text"
-                        value={moviesName}
                         onChange={handleNameChange}
                         autoComplete="off"
                         autoFocus
@@ -50,7 +54,3 @@ const  SearchBar = ({onSubmit}) => {
 };
 
 export default SearchBar;
-
-SearchBar.propTypes = {
-    onSubmit: PropTypes.func.isRequired
-};

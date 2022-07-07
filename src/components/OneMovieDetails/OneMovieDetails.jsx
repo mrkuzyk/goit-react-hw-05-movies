@@ -1,15 +1,18 @@
 import { useParams, NavLink, Outlet } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import s from './OneMovieDetails.module.css';
+import Loader from '../Loader/Loader';
 
 const OneMovieDetails = () => {
     const [movie, setMovies] = useState([]);
     const [error, setError] = useState(null);
     const [firstLoad, setFirstLoad] = useState(true);
+    const [loader, setLoader] = useState(false);
 
     const { id } = useParams();
 
     useEffect(() => {
+        setLoader(true); // включаю лоадер
 
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6498bc448a014b6e9c7e74504ab1fe83&language=en-US`)
             .then(response => {
@@ -20,17 +23,22 @@ const OneMovieDetails = () => {
                 return response.json();
             })
             .then(movie => {
-                console.log(movie);
+                // console.log(movie);
                 setMovies(movie)
                 setFirstLoad(false)
+                setLoader(false); // виключаю лоадер після загрузки
             })
-            .catch(error => { setError(error) })
+            .catch(error => {
+                setError(error)
+                setLoader(false); // виключаю лоадер 
+            })
     }, [id]);
 
 
     const { poster_path, title, original_title, release_date, vote_average, overview, genres } = movie;
     return (
         <section className={s.movieDetails}>
+            {loader && <Loader/> }
             {movie && !error && !firstLoad && 
                 <div className="container">
                     <div className={s.flex}>
