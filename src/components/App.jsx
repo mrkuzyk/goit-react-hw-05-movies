@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import PageNotFound from './PageNotFound/PageNotFound';
+import { PageNotFound } from './MessageTitle/MessageTitle';
 import SearchMovie from './SearchMovie/SearchMovie';
 import Header from './Header/Header';
 import TrendingMovies from './TrendingMovies/TrendingMovies';

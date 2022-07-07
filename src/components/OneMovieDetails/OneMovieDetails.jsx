@@ -5,11 +5,12 @@ import s from './OneMovieDetails.module.css';
 const OneMovieDetails = () => {
     const [movie, setMovies] = useState([]);
     const [error, setError] = useState(null);
+    const [firstLoad, setFirstLoad] = useState(true);
 
     const { id } = useParams();
 
     useEffect(() => {
-        
+
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6498bc448a014b6e9c7e74504ab1fe83&language=en-US`)
             .then(response => {
                 if (!response.ok) {
@@ -19,7 +20,9 @@ const OneMovieDetails = () => {
                 return response.json();
             })
             .then(movie => {
+                console.log(movie);
                 setMovies(movie)
+                setFirstLoad(false)
             })
             .catch(error => { setError(error) })
     }, [id]);
@@ -28,7 +31,7 @@ const OneMovieDetails = () => {
     const { poster_path, title, original_title, release_date, vote_average, overview, genres } = movie;
     return (
         <section className={s.movieDetails}>
-            {movie && !error && 
+            {movie && !error && !firstLoad && 
                 <div className="container">
                     <div className={s.flex}>
                         <img

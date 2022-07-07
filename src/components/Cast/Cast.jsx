@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import ActorInfo from 'components/ActorInfo/ActorInfo';
 import s from './Cast.module.css';
+import { CastNotFound } from 'components/MessageTitle/MessageTitle';
 
 const Cast = () => {
 
@@ -30,7 +31,7 @@ const Cast = () => {
     
     return (
         <div className={s.flex}>
-            {cast && !error && 
+            {cast.length > 0 && cast && !error ? 
                 <ul className={s.list}>
                     {cast.map((actor) =>
                         <li key={actor.id} className={s.item}>
@@ -38,6 +39,8 @@ const Cast = () => {
                         </li>
                     )}
                 </ul>
+                :
+                <CastNotFound/>
             }
         </div>
     );

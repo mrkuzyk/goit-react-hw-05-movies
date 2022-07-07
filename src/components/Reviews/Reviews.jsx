@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import ReviewInfo from 'components/ReviewInfo/ReviewInfo';
+import { ReviewsNotFound } from 'components/MessageTitle/MessageTitle';
 import s from './Reviews.module.css'
-const Reviews = () => {
 
+const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
 
@@ -38,7 +39,8 @@ const Reviews = () => {
                     )}
                 </ul> 
                 :
-                <h2 className={s.notInfo}>We don't have any reviews for this movie</h2>
+                <ReviewsNotFound/>
+                // <h2 className={s.notInfo}>We don't have any reviews for this movie</h2>
             }
         </div>
     );
