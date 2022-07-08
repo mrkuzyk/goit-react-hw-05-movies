@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
 import { PageNotFound } from './MessageTitle/MessageTitle';
-import SearchMovie from './SearchMovie/SearchMovie';
+import SearchMovie from '../pages/SearchMovie/SearchMovie';
 import Header from './Header/Header';
-import TrendingMovies from './TrendingMovies/TrendingMovies';
-import OneMovieDetails from './OneMovieDetails/OneMovieDetails';
-import Cast from './Cast/Cast';
-import Reviews from './Reviews/Reviews';
+import TrendingMovies from '../pages/TrendingMovies/TrendingMovies';
+import OneMovieDetails from '../pages/OneMovieDetails/OneMovieDetails';
+import Cast from '../movies/Cast/Cast';
+import Reviews from '../movies/Reviews/Reviews';
 
 
 export const App = () => {

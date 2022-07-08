@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ListMovies from "components/ListMovies/ListMovies";
+import ListMovies from "movies/ListMovies/ListMovies";
+import Loader from "components/Loader/Loader";
 import s from './TrendingMovies.module.css';
-import Loader from '../Loader/Loader';
 
 export default function TrendingMovies() {
     const [movies, setMovies] = useState([]);

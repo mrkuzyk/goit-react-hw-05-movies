@@ -1,18 +1,18 @@
 import { useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import ActorInfo from 'components/ActorInfo/ActorInfo';
-import s from './Cast.module.css';
-import { CastNotFound } from 'components/MessageTitle/MessageTitle';
+import ReviewInfo from 'movies/ReviewInfo/ReviewInfo';
+import { ReviewsNotFound } from 'components/MessageTitle/MessageTitle';
+import s from './Reviews.module.css';
 import Loader from 'components/Loader/Loader';
 import ButtonBack from 'components/ButtonBack/ButtonBack';
 
-const Cast = () => {
-
-    const [cast, setCast] = useState([]);
+const Reviews = () => {
+    const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
     const [loader, setLoader] = useState(false);
     const [prevPage, setPrevPage] = useState(null);
     const location = useLocation();
+
 
     const { id } = useParams(); // отримую параметр з url
     // console.log(id);
@@ -25,7 +25,7 @@ const Cast = () => {
     useEffect(() => {
         setLoader(true); // включаю лоадер
 
-        fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=6498bc448a014b6e9c7e74504ab1fe83&language=en-US`)
+        fetch(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=6498bc448a014b6e9c7e74504ab1fe83&language=en-US&page=1`)
             .then(response => {
                 if (!response.ok) {
                     throw Error(response.statusText);
@@ -34,35 +34,36 @@ const Cast = () => {
                 return response.json();
             })
             .then(details => {
-                // console.log(details.cast);
-                setCast(details.cast) // записую акторський склад в стейт
+                // console.log(details.results);
+                setReviews(details.results) // записую відгуки в стейт
                 setLoader(false); // виключаю лоадер після загрузки
             })
             .catch(error => {
-                setError(error);
-                setLoader(false); // виключаю лоадер 
+                setError(error)
+                setLoader(false); // виключаю лоадер
             })
     }, [id]);
     
     return (
-        <div className={s.flex}>
+        <div>
             {loader && <Loader/> }
-            {cast.length > 0 && cast && !error ? 
+            {reviews.length > 0 && !error ? 
                 <>
-                    <ul className={s.list}>
-                        {cast.map((actor) =>
-                            <li key={actor.id} className={s.item}>
-                                <ActorInfo actor={actor} />
+                    <ul className={s.ul}>
+                        {reviews.map((review) =>
+                            <li key={review.id} className={s.item}>
+                                <ReviewInfo review={review } />
                             </li>
                         )}
                     </ul>
                     <ButtonBack to={prevPage ?? "/movies"} classStyle={2} />
-                </>
+                </>    
                 :
-                <CastNotFound/>
+                <ReviewsNotFound/>
+                // <h2 className={s.notInfo}>We don't have any reviews for this movie</h2>
             }
         </div>
     );
 };
 
-export default Cast;
+export default Reviews;

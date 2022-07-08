@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import SearchBar from "components/SearchBar/SearchBar";
-import ListMovies from "components/ListMovies/ListMovies";
-import { StartSearch, MovieNotFound, ErrorMessage } from '../MessageTitle/MessageTitle';
-import Loader from '../Loader/Loader';
+import ListMovies from "movies/ListMovies/ListMovies";
+import { StartSearch, MovieNotFound, ErrorMessage } from 'components/MessageTitle/MessageTitle';
+import Loader from "components/Loader/Loader";
 
 const SearchMovie = () => {
     const [movies, setMovies] = useState([]);

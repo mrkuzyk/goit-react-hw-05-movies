@@ -1,8 +1,8 @@
 import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import s from './OneMovieDetails.module.css';
-import Loader from '../Loader/Loader';
+import Loader from 'components/Loader/Loader';
 import ButtonBack from 'components/ButtonBack/ButtonBack';
+import s from './OneMovieDetails.module.css';
 
 const OneMovieDetails = () => {
     const [movie, setMovies] = useState([]);

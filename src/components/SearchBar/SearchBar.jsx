@@ -40,7 +40,7 @@ const  SearchBar = () => {
                 <label>
                     <input
                         className={s.input}
-                        name="moviesName"
+                        name="name"
                         type="text"
                         onChange={handleNameChange}
                         autoComplete="off"
