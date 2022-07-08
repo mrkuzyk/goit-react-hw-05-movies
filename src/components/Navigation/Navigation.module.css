@@ -30,5 +30,6 @@ background-color: rgba(245, 249, 150, 0.932);
 }
 
 .active{
+    color: white;
     background-color: rgba(32, 145, 220, 0.903);
 }
