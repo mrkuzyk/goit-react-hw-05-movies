@@ -10,8 +10,21 @@ const OneMovieDetails = () => {
     const [firstLoad, setFirstLoad] = useState(true);
     const [loader, setLoader] = useState(false);
     const [prevPage, setPrevPage] = useState(null);
+    const [movieName, setMovieName] = useState('React App');
     const location = useLocation();
     const { id } = useParams();
+
+    
+    // console.dir(titlePage.textContent);
+
+    useEffect(() => {
+        const titlePage = document.getElementById('title');
+        titlePage.textContent = movieName;
+
+        return () => {
+            titlePage.textContent = 'React App';
+        }
+    },[movieName])
 
     useEffect(() => {
         setPrevPage(location.state?.from)
@@ -33,6 +46,7 @@ const OneMovieDetails = () => {
                 // console.log(movie);
                 setMovies(movie)
                 setFirstLoad(false)
+                setMovieName(movie.title)
                 setLoader(false); // виключаю лоадер після загрузки
             })
             .catch(error => {
