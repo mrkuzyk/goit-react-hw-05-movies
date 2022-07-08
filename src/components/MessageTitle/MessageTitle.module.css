@@ -29,7 +29,7 @@
     margin-top: 20px;
 
     border-width: 1px;
-    border-style: dashed solid;
+    /* border-style: dashed solid; */
     border-color: rgba(4, 57, 92, 0.903);
 }
 

@@ -42,7 +42,9 @@ export default function TrendingMovies() {
             {movies && !error &&
                 <div className="container">
                     <h3 className={s.title}>Trending today</h3>
-                    <ListMovies movies={movies}/>
+                    <ListMovies
+                        movies={movies}
+                    />
                 </div>
             }
         </section>

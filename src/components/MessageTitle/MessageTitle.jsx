@@ -1,4 +1,5 @@
-import s from './MessageTitle.module.css'
+import s from './MessageTitle.module.css';
+import PropTypes from 'prop-types';
 
 export const StartSearch = () => {
     return (
@@ -35,3 +36,7 @@ export const CastNotFound = () => {
         <h1 className={s.titleDetail}>We do not have any information about cast</h1>
     );
 }; 
+
+ErrorMessage.propTypes = {
+    error: PropTypes.string.isRequired
+};

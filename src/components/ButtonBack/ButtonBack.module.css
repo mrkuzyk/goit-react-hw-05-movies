@@ -1,0 +1,43 @@
+.btnTop{
+    text-decoration: none;
+    text-transform: uppercase;
+
+    font-weight: 350;
+    font-size: 17px;
+    line-height: 1.15;
+
+    width: 150px;
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: -25px;
+    margin-bottom: 10px;
+    padding: 5px 24px;
+
+    color: white;
+
+    background-color: rgba(32, 145, 220, 0.903);
+}
+
+.btnTop:hover {
+    background-color: rgba(127, 195, 240, 0.903);
+}
+
+.span{
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.36;
+
+    margin-right: 15px;
+    margin-bottom: 1px;
+}
+
+.btnBottom{
+    composes: btnTop;
+
+    margin-top: 0px;
+    margin-left: 10px;
+}

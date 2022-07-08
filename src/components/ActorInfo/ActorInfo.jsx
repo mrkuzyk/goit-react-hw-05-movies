@@ -1,4 +1,5 @@
 import s from './ActorInfo.module.css';
+import PropTypes from 'prop-types';
 
 const ActorInfo = ({ actor: { id, profile_path, name, character } }) => {
     return (
@@ -15,3 +16,7 @@ const ActorInfo = ({ actor: { id, profile_path, name, character } }) => {
 };
 
 export default ActorInfo;
+
+ActorInfo.propTypes = {
+    actor: PropTypes.object.isRequired
+};

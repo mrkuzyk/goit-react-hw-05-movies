@@ -1,4 +1,5 @@
 import s from './ReviewInfo.module.css';
+import PropTypes from 'prop-types';
 
 const ReviewInfo = ({ review: {id, author, content } }) => {
     return (
@@ -10,3 +11,7 @@ const ReviewInfo = ({ review: {id, author, content } }) => {
 };
 
 export default ReviewInfo;
+
+ReviewInfo.propTypes = {
+    review: PropTypes.object.isRequired
+};
