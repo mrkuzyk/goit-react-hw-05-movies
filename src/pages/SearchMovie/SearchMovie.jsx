@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import { fetchSearchMovie } from "api/fetchApi";
 import SearchBar from "components/SearchBar/SearchBar";
 import ListMovies from "movies/ListMovies/ListMovies";
 import { StartSearch, MovieNotFound, ErrorMessage } from 'components/MessageTitle/MessageTitle';
@@ -22,25 +22,16 @@ const SearchMovie = () => {
 
         setLoader(true); // включаю лоадер
         
-        fetch(`https://api.themoviedb.org/3/search/movie?api_key=6498bc448a014b6e9c7e74504ab1fe83&language=en-US&query=${query}&page=1&include_adult=false`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json()
-                    }
-
-                    return Promise.reject (
-                        new Error(`Не знайдено фільмів з ім'ям ${query}. Перезавантажте сторінку і спробуйте ще раз!`)
-                    )
-                })
+        fetchSearchMovie(query)
             .then(movies => {
-                // console.log(movies);
                 setMovies(movies.results);
                 setTotalMovies(movies.total_results)
-                setLoader(false); // виключаю лоадер після загрузки
             })
             .catch(error =>{
                 setError(error);
-                setLoader(false);
+            })
+            .finally(() => {
+                setLoader(false); // виключаю лоадер
             })
         
     // eslint-disable-next-line react-hooks/exhaustive-deps

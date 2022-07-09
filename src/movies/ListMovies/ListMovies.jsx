@@ -15,7 +15,10 @@ const ListMovies = ({ movies }) => {
                         state={{ from: location }}
                     >
                         <img
-                            src={poster_path ? `https://image.tmdb.org/t/p/w400${poster_path}` : 'https://raw.githubusercontent.com/h0wter/JS-Project/main/src/images/default_img/filmoteka.jpg'}
+                            src={ poster_path
+                                ? `https://image.tmdb.org/t/p/w400${poster_path}`
+                                : 'https://raw.githubusercontent.com/h0wter/JS-Project/main/src/images/default_img/filmoteka.jpg'
+                            }
                             alt={title}
                             className={s.img}
                         />

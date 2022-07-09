@@ -5,6 +5,7 @@ import { ReviewsNotFound } from 'components/MessageTitle/MessageTitle';
 import s from './Reviews.module.css';
 import Loader from 'components/Loader/Loader';
 import ButtonBack from 'components/ButtonBack/ButtonBack';
+import { fetchReviews } from 'api/fetchApi';
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
@@ -25,21 +26,15 @@ const Reviews = () => {
     useEffect(() => {
         setLoader(true); // включаю лоадер
 
-        fetch(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=6498bc448a014b6e9c7e74504ab1fe83&language=en-US&page=1`)
-            .then(response => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                };
-
-                return response.json();
-            })
+        fetchReviews(id)
             .then(details => {
                 // console.log(details.results);
                 setReviews(details.results) // записую відгуки в стейт
-                setLoader(false); // виключаю лоадер після загрузки
             })
             .catch(error => {
                 setError(error)
+            })
+            .finally(() => {
                 setLoader(false); // виключаю лоадер
             })
     }, [id]);

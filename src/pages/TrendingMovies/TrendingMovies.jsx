@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { fetchTrendingMovies } from "api/fetchApi";
 import ListMovies from "movies/ListMovies/ListMovies";
 import Loader from "components/Loader/Loader";
 import s from './TrendingMovies.module.css';
 
-export default function TrendingMovies() {
+const TrendingMovies = () => {
     const [movies, setMovies] = useState([]);
     const [error, setError] = useState(null);
     const [firstLoad, setFirstLoad] = useState(true);
@@ -17,21 +18,17 @@ export default function TrendingMovies() {
 
         setLoader(true); // включаю лоадер
 
-        fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=6498bc448a014b6e9c7e74504ab1fe83')
-            .then(response => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                };
-
-                return response.json();
-            })
+        fetchTrendingMovies()
             .then(movies => {
-                // console.log(movies.results);
+                // console.log(movies);
                 setMovies(movies.results)
-                setLoader(false); // виключаю лоадер після загрузки
+                // setLoader(false); // виключаю лоадер після загрузки
             })
             .catch(error => {
                 setError(error)
+                // setLoader(false); // виключаю лоадер
+            })
+            .finally(() => {
                 setLoader(false); // виключаю лоадер
             })
     }, [firstLoad]);
@@ -50,3 +47,5 @@ export default function TrendingMovies() {
         </section>
     );
 };
+
+export default TrendingMovies;

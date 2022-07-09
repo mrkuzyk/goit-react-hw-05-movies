@@ -1,5 +1,6 @@
 import { useParams, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
+import { fetchOneMovieDetails } from 'api/fetchApi';
 import Loader from 'components/Loader/Loader';
 import ButtonBack from 'components/ButtonBack/ButtonBack';
 import s from './OneMovieDetails.module.css';
@@ -34,25 +35,20 @@ const OneMovieDetails = () => {
     useEffect(() => {
         setLoader(true); // включаю лоадер
 
-        fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=6498bc448a014b6e9c7e74504ab1fe83&language=en-US`)
-            .then(response => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                };
-
-                return response.json();
-            })
+        fetchOneMovieDetails(id)
             .then(movie => {
                 // console.log(movie);
                 setMovies(movie)
                 setFirstLoad(false)
                 setMovieName(movie.title)
-                setLoader(false); // виключаю лоадер після загрузки
             })
             .catch(error => {
-                setError(error)
-                setLoader(false); // виключаю лоадер 
+                setError(error) 
             })
+            .finally(() => {
+                setLoader(false); // виключаю лоадер
+            })
+        
     }, [id]);
 
     const { poster_path, title, original_title, release_date, vote_average, overview, genres } = movie;
@@ -66,7 +62,10 @@ const OneMovieDetails = () => {
                     <>
                         <div className={s.flex}>
                             <img
-                                src={poster_path && `https://image.tmdb.org/t/p/w400${poster_path}`}
+                            src={ poster_path
+                                ? `https://image.tmdb.org/t/p/w400${poster_path}`
+                                : 'https://raw.githubusercontent.com/h0wter/JS-Project/main/src/images/default_img/filmoteka.jpg'
+                            }
                                 alt={title}
                                 className={s.img}
                             />
@@ -75,7 +74,7 @@ const OneMovieDetails = () => {
                                 <p className={s.score}>User Score: {vote_average * 10}%</p>
                                 <h3 className={s.title}>Overview</h3>
                                 <p className={s.titleText}>{overview}</p>
-                                <h3 className={s.title}>Genres</h3>
+                                {genres && genres.length > 1 && <h3 className={s.title}>Genres</h3>}
                                 {genres && <p className={s.titleText}>{genres.map((g) => g.name).join(' | ')}</p>}
                             </div>
                         </div>

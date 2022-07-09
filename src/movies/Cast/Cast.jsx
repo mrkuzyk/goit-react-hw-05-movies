@@ -5,6 +5,7 @@ import s from './Cast.module.css';
 import { CastNotFound } from 'components/MessageTitle/MessageTitle';
 import Loader from 'components/Loader/Loader';
 import ButtonBack from 'components/ButtonBack/ButtonBack';
+import { fetchCast } from 'api/fetchApi';
 
 const Cast = () => {
 
@@ -25,22 +26,16 @@ const Cast = () => {
     useEffect(() => {
         setLoader(true); // включаю лоадер
 
-        fetch(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=6498bc448a014b6e9c7e74504ab1fe83&language=en-US`)
-            .then(response => {
-                if (!response.ok) {
-                    throw Error(response.statusText);
-                };
-
-                return response.json();
-            })
+        fetchCast(id)
             .then(details => {
                 // console.log(details.cast);
                 setCast(details.cast) // записую акторський склад в стейт
-                setLoader(false); // виключаю лоадер після загрузки
             })
             .catch(error => {
                 setError(error);
-                setLoader(false); // виключаю лоадер 
+            })
+            .finally(() => {
+                setLoader(false); // виключаю лоадер
             })
     }, [id]);
     
