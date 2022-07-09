@@ -4,6 +4,7 @@ import s from './ListMovies.module.css';
 
 const ListMovies = ({ movies }) => {
     const location = useLocation();
+    const templatePhoto = 'https://raw.githubusercontent.com/h0wter/JS-Project/main/src/images/default_img/filmoteka.jpg';
 
     return (
         <ul className={s.list}>
@@ -17,7 +18,7 @@ const ListMovies = ({ movies }) => {
                         <img
                             src={ poster_path
                                 ? `https://image.tmdb.org/t/p/w400${poster_path}`
-                                : 'https://raw.githubusercontent.com/h0wter/JS-Project/main/src/images/default_img/filmoteka.jpg'
+                                : templatePhoto
                             }
                             alt={title}
                             className={s.img}

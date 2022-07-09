@@ -15,9 +15,6 @@ const OneMovieDetails = () => {
     const location = useLocation();
     const { id } = useParams();
 
-    
-    // console.dir(titlePage.textContent);
-
     useEffect(() => {
         const titlePage = document.getElementById('title');
         titlePage.textContent = movieName;
@@ -51,6 +48,7 @@ const OneMovieDetails = () => {
         
     }, [id]);
 
+    const templatePhoto = 'https://raw.githubusercontent.com/h0wter/JS-Project/main/src/images/default_img/filmoteka.jpg';
     const { poster_path, title, original_title, release_date, vote_average, overview, genres } = movie;
     
     return (
@@ -64,7 +62,7 @@ const OneMovieDetails = () => {
                             <img
                             src={ poster_path
                                 ? `https://image.tmdb.org/t/p/w400${poster_path}`
-                                : 'https://raw.githubusercontent.com/h0wter/JS-Project/main/src/images/default_img/filmoteka.jpg'
+                                : templatePhoto
                             }
                                 alt={title}
                                 className={s.img}
